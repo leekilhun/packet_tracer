@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="framework">
+      <UniqueIdentifier>{fec3d147-55af-433d-8e2a-088758c6c9a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="framework\interface">
+      <UniqueIdentifier>{3b441a63-7f0b-4748-9b2c-c6783bdaa4a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="framework\hw">
+      <UniqueIdentifier>{73abd0ec-744b-4811-adfe-2c6357f8ad90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="framework\common">
+      <UniqueIdentifier>{951e788c-88a4-4c27-bc5b-8112c9a8667b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="framework\system">
+      <UniqueIdentifier>{3ab70505-72d6-4267-8299-35bfe1a2f3e9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="jLTracer.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="jLTracerDlg.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\framework_def.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\interface\IComm.h">
+      <Filter>framework\interface</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\interface\Icommon.h">
+      <Filter>framework\interface</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\interface\IDistMeasure.h">
+      <Filter>framework\interface</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\interface\IIO.h">
+      <Filter>framework\interface</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\hw\netSocket.h">
+      <Filter>framework\hw</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\hw\SerialComm.h">
+      <Filter>framework\hw</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\common\binary.h">
+      <Filter>framework\common</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\common\util.h">
+      <Filter>framework\common</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\def.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\system\system.h">
+      <Filter>framework\system</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\system\system_def.h">
+      <Filter>framework\system</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="jLTracer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="jLTracerDlg.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\hw\netSocket.cpp">
+      <Filter>framework\hw</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\hw\SerialComm.cpp">
+      <Filter>framework\hw</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\common\util.cpp">
+      <Filter>framework\common</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\system\system.cpp">
+      <Filter>framework\system</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="jLTracer.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\jLTracer.rc2">
+      <Filter>리소스 파일</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\jLTracer.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
