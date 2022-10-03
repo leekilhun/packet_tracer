@@ -45,6 +45,8 @@ public:
 	afx_msg void OnDestroy();
 private:
 	// 화면 정보를 업데이트 한다
+	bool receivePacket();
+	void receiveCplt();
 	void update();
 	void addPortList(CComboBox* combobox);
 	void addBaudList(CComboBox* combobox);

@@ -1,1 +1,2 @@
+
 ![메인화면](.imgs/main_ui.PNG)

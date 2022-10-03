@@ -89,7 +89,7 @@ errno_t apSystem::_createSerialCommComponents()
   SerialComm::cfg_t cfg = {};
   cfg.SetPortName("COM24");
   cfg.port_no = 1;
-  cfg.baudrate = 115200;
+  cfg.baudrate = 9600;
 
   
   m_pSerialComm = new SerialComm(cfg);

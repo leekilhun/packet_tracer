@@ -895,10 +895,8 @@ namespace util
     return ret_crc;
   }
 
-
-  
-#define UTIL_CRC_POLY 0xA001
-  inline void crc16_update(uint32_t* crc_in, uint8_t data) {
+  inline void crc16_modbus_update(uint16_t* crc_in, uint8_t data) {
+    constexpr uint16_t poly = 0xA001;
     uint16_t crc = *crc_in;
     uint8_t i;
     /* Exclusive-OR the byte with the CRC */
@@ -910,7 +908,34 @@ namespace util
       // Note - the bit test is performed before the rotation, so can't move the << here
       if (crc & 0x0001) {
         crc >>= 1;
-        crc ^= UTIL_CRC_POLY;
+        crc ^= poly;
+      }
+      else {
+        // Just rotate it
+        crc >>= 1;
+      }
+    }
+    *crc_in = crc;
+  }
+
+
+
+
+  
+  inline void crc16_update(uint16_t* crc_in, uint8_t data) {
+    constexpr uint16_t poly = 0xA001;
+    uint16_t crc = *crc_in;
+    uint8_t i;
+    /* Exclusive-OR the byte with the CRC */
+    crc ^= data; //*(pDataBuffer + iByte);
+
+    /* Loop through all 8 data bits */
+    for (i = 0; i <= 7; i++) {
+      /* If the LSB is 1, shift the CRC and XOR the polynomial mask with the CRC */
+      // Note - the bit test is performed before the rotation, so can't move the << here
+      if (crc & 0x0001) {
+        crc >>= 1;
+        crc ^= poly;
       }
       else {
         // Just rotate it
