@@ -3,7 +3,7 @@
 //
 
 #include "pch.h"
-#include "framework.h"
+//#include "framework.h"
 #include "jLTracer.h"
 #include "jLTracerDlg.h"
 
@@ -11,6 +11,53 @@
 #define new DEBUG_NEW
 #endif
 
+
+/****************************************************
+ 전역 함수
+ ****************************************************/
+bool g_TrdLife = false;
+DWORD g_TrdId = 0;
+HANDLE g_hThread = nullptr;
+
+
+UINT threadFunc(LPVOID pParam)
+{
+	LTRACE("app thread start\n\r");
+	while (g_TrdLife)
+	{
+		cliMain();
+		Sleep(5);
+	}
+
+	LTRACE("app thread stop\n\r");
+	g_TrdId = 0;
+	g_hThread = nullptr;
+	return 0;
+}
+
+void app_threadStop(void)
+{
+	g_TrdLife = false;
+	while (g_TrdId);
+
+}
+
+void app_threadRun(void)
+{
+	g_TrdLife = true;
+	// 포트 감시 스레드 생성
+	g_hThread = CreateThread(
+		(LPSECURITY_ATTRIBUTES)NULL,
+		0,
+		(LPTHREAD_START_ROUTINE)threadFunc,
+		(LPVOID)nullptr,
+		0,
+		&g_TrdId
+	);
+
+}
+
+/*****************************************************/
 
 // CjLTracerApp
 
@@ -46,14 +93,11 @@ BOOL CjLTracerApp::InitInstance()
 	}
 
 
+	app_threadRun();
+
+	syslog_Init();
 
 	m_pSystem->Initialize();
-
-
-
-
-
-
 
 	CjLTracerDlg dlg;
 	m_pMainWnd = &dlg;
@@ -88,6 +132,8 @@ BOOL CjLTracerApp::InitInstance()
 int CjLTracerApp::ExitInstance()
 {
 	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
+	app_threadStop();
+
 	if (m_pSystem)
 	{
 		delete m_pSystem;

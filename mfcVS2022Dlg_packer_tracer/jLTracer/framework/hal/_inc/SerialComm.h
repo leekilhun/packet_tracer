@@ -17,7 +17,6 @@
 
 
 
-#if 1
 
 #define SERIAL_COMM_BUFF_MAX	4096
 
@@ -128,7 +127,7 @@ private:
 	uint32_t serialAvailable();
 	uint32_t readData();
 public:
-	//errno_t PortOpen(char* port_name, uint32_t baud);
+	errno_t PortOpen(char* port_name, uint32_t baud);
 
 
 	errno_t Open();
@@ -144,6 +143,5 @@ public:
 
 
 };
-#endif
 
 #endif

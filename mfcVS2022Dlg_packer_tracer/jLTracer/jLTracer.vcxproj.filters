@@ -16,17 +16,41 @@
     <Filter Include="framework">
       <UniqueIdentifier>{fec3d147-55af-433d-8e2a-088758c6c9a4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="framework\interface">
-      <UniqueIdentifier>{3b441a63-7f0b-4748-9b2c-c6783bdaa4a6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="framework\hw">
-      <UniqueIdentifier>{73abd0ec-744b-4811-adfe-2c6357f8ad90}</UniqueIdentifier>
-    </Filter>
     <Filter Include="framework\common">
       <UniqueIdentifier>{951e788c-88a4-4c27-bc5b-8112c9a8667b}</UniqueIdentifier>
     </Filter>
     <Filter Include="framework\system">
       <UniqueIdentifier>{3ab70505-72d6-4267-8299-35bfe1a2f3e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="framework\hal">
+      <UniqueIdentifier>{73abd0ec-744b-4811-adfe-2c6357f8ad90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="framework\hal\interface">
+      <UniqueIdentifier>{3b441a63-7f0b-4748-9b2c-c6783bdaa4a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="framework\hal\_inc">
+      <UniqueIdentifier>{ffabdc92-e856-4013-999e-938c9ec9bd45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="framework\hal\driver">
+      <UniqueIdentifier>{a7ea70ed-90b0-476e-af38-f235a284235d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="framework\hal\maker">
+      <UniqueIdentifier>{bfadcea3-c0fa-4645-9938-eec859784494}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="framework\hal\maker\fastech">
+      <UniqueIdentifier>{ef20d229-e9ad-4268-9e90-5b35a9cb173c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="framework\hal\maker\moons">
+      <UniqueIdentifier>{48b0a3b6-28ac-41ca-bdd8-28e6ea760d2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="framework\hal\maker\sick">
+      <UniqueIdentifier>{bcddf0a2-a192-489c-9d73-f3204b77ba86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib">
+      <UniqueIdentifier>{c0ada17e-89c5-4865-aac1-e19215ae1815}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\moons_SCL">
+      <UniqueIdentifier>{48f6f836-8775-4fd2-9e81-9ef09ccb08e7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -51,24 +75,6 @@
     <ClInclude Include="framework\framework_def.h">
       <Filter>framework</Filter>
     </ClInclude>
-    <ClInclude Include="framework\interface\IComm.h">
-      <Filter>framework\interface</Filter>
-    </ClInclude>
-    <ClInclude Include="framework\interface\Icommon.h">
-      <Filter>framework\interface</Filter>
-    </ClInclude>
-    <ClInclude Include="framework\interface\IDistMeasure.h">
-      <Filter>framework\interface</Filter>
-    </ClInclude>
-    <ClInclude Include="framework\interface\IIO.h">
-      <Filter>framework\interface</Filter>
-    </ClInclude>
-    <ClInclude Include="framework\hw\netSocket.h">
-      <Filter>framework\hw</Filter>
-    </ClInclude>
-    <ClInclude Include="framework\hw\SerialComm.h">
-      <Filter>framework\hw</Filter>
-    </ClInclude>
     <ClInclude Include="framework\common\binary.h">
       <Filter>framework\common</Filter>
     </ClInclude>
@@ -84,6 +90,72 @@
     <ClInclude Include="framework\system\system_def.h">
       <Filter>framework\system</Filter>
     </ClInclude>
+    <ClInclude Include="framework\common\syslog.h">
+      <Filter>framework\common</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\hal\hal.h">
+      <Filter>framework\hal</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\hal\hal_def.h">
+      <Filter>framework\hal</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\hal\_inc\comport_serial.h">
+      <Filter>framework\hal\_inc</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\hal\_inc\dist_measure_sick.h">
+      <Filter>framework\hal\_inc</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\hal\_inc\io_fastech.h">
+      <Filter>framework\hal\_inc</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\hal\_inc\motor_fastech.h">
+      <Filter>framework\hal\_inc</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\hal\_inc\motor_fastech_comm.h">
+      <Filter>framework\hal\_inc</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\hal\_inc\motor_fastech_reg.h">
+      <Filter>framework\hal\_inc</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\hal\_inc\motor_moons.h">
+      <Filter>framework\hal\_inc</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\hal\_inc\motor_moons_reg.h">
+      <Filter>framework\hal\_inc</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\hal\_inc\motor_oriental.h">
+      <Filter>framework\hal\_inc</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\hal\_inc\netSocket.h">
+      <Filter>framework\hal\_inc</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\hal\_inc\SerialComm.h">
+      <Filter>framework\hal\_inc</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\hal\interface\IAxis.h">
+      <Filter>framework\hal\interface</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\hal\interface\IComm.h">
+      <Filter>framework\hal\interface</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\hal\interface\Icommon.h">
+      <Filter>framework\hal\interface</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\hal\interface\IDistMeasure.h">
+      <Filter>framework\hal\interface</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\hal\interface\IIO.h">
+      <Filter>framework\hal\interface</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\common\cli.h">
+      <Filter>framework\common</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\CFormDlg_formMoons.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\CFormDlg_formN4dio.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jLTracer.cpp">
@@ -95,17 +167,44 @@
     <ClCompile Include="pch.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="framework\hw\netSocket.cpp">
-      <Filter>framework\hw</Filter>
-    </ClCompile>
-    <ClCompile Include="framework\hw\SerialComm.cpp">
-      <Filter>framework\hw</Filter>
-    </ClCompile>
     <ClCompile Include="framework\common\util.cpp">
       <Filter>framework\common</Filter>
     </ClCompile>
     <ClCompile Include="framework\system\system.cpp">
       <Filter>framework\system</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\common\syslog.cpp">
+      <Filter>framework\common</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\hal\driver\netSocket.cpp">
+      <Filter>framework\hal\driver</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\hal\driver\SerialComm.cpp">
+      <Filter>framework\hal\driver</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\hal\maker\fastech\io_fastech.cpp">
+      <Filter>framework\hal\maker\fastech</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\hal\maker\fastech\motor_fastech.cpp">
+      <Filter>framework\hal\maker\fastech</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\hal\maker\fastech\motor_fastech_comm.cpp">
+      <Filter>framework\hal\maker\fastech</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\hal\maker\moons\motor_moons.cpp">
+      <Filter>framework\hal\maker\moons</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\hal\maker\sick\dist_measure_sick.cpp">
+      <Filter>framework\hal\maker\sick</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\common\cli.cpp">
+      <Filter>framework\common</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\CFormDlg_formMoons.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\CFormDlg_formN4dio.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -120,6 +219,18 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\jLTracer.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\redButton.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\greenButton.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\bitmapTabMain.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\Stop.ico">
       <Filter>리소스 파일</Filter>
     </Image>
   </ItemGroup>

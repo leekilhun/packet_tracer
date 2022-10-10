@@ -314,6 +314,48 @@ returnOut:
   return err;
 }
 
+
+errno_t file::FileCopy(const char* psour, const char* pdest) {
+
+  FILE* fsour, * fdest;
+  char   buff[1024];
+  size_t     n_size;
+
+  if (!strcmp(psour, pdest))
+    return FILE_ERR_NO_DIFFERENCE; // 원본과 사본 파일이 동일하면 에러
+
+  if (ERROR_SUCCESS != (fopen_s(&fsour, psour, "rb")))
+    return FILE_ERR_READ_FILE; // 원본 파일 열기
+
+  if (ERROR_SUCCESS != fopen_s(&fdest, pdest, "wb"))
+  {
+    fclose(fsour);
+    return FILE_ERR_MAKE_COPYFILE; // 원본 파일 열기
+  }
+
+
+  // 대상 파일 만들기
+
+  if (fsour != nullptr)
+  {
+    while (0 < (n_size = fread(buff, 1, sizeof(buff), fsour))) {
+      if (0 == fwrite(buff, 1, n_size, fdest)) {
+        fclose(fsour);
+        fclose(fdest);
+        _unlink(pdest); // 에러난 파일 지우고 종료
+        return FILE_ERR_WRITE_COPYFILE;
+      }
+    }
+    fclose(fsour);
+    fclose(fdest);
+  }
+
+
+
+  return FILE_ERR_SUCCESS;
+}
+
+
 uint8_t trans::SplitArgs(char* arg_str, char** argv, char* delim_chars, int max)
 {
   uint8_t argc = 0;
@@ -334,7 +376,7 @@ void trans::NowStr(char* p_str, int max_len)
   SYSTEMTIME st;
   GetLocalTime(&st);
 
-  sprintf_s(p_str, max_len, "[%04d/%02d/%02d] %02d:%02d:%02d (%02dmsec)\n"
+  sprintf_s(p_str, max_len, "[%04d/%02d/%02d] %02d:%02d:%02d'%02d \n"
     , st.wYear
     , st.wMonth
     , st.wDay
@@ -352,36 +394,12 @@ void trans::DateFormStr(char* p_str, int length, DataTimeFormat_e type)
   SYSTEMTIME st;
   GetLocalTime(&st);
 
+
   switch (type)
   {
-  case DataTimeFormat_e::YYYYMMDD_HHMMSS_space:
+  case DataTimeFormat_e::YYYYMMDD_HHMMSS_UU:
   {
-    sprintf_s(p_str, length, "%04d-%02d-%02d %02d:%02d:%02d "
-      , st.wYear
-      , st.wMonth
-      , st.wDay
-      , st.wHour
-      , st.wMinute
-      , st.wSecond
-    );
-  }
-  break;
-  case DataTimeFormat_e::YYYYMMDD_HHMMSS_square_brackets:
-  {
-    sprintf_s(p_str, length, "[%04d-%02d-%02d] [%02d:%02d:%02d] "
-      , st.wYear
-      , st.wMonth
-      , st.wDay
-      , st.wHour
-      , st.wMinute
-      , st.wSecond
-    );
-  }
-  break;
-  case DataTimeFormat_e::YYYYMMDD_HHMMSSUU_space:
-  default:
-  {
-    sprintf_s(p_str, length, "[%04d-%02d-%02d] [%02d:%02d:%02d'%02d] "
+    sprintf_s(p_str, length, "%04d-%02d-%02d %02d:%02d:%02d'%03d "
       , st.wYear
       , st.wMonth
       , st.wDay
@@ -389,13 +407,39 @@ void trans::DateFormStr(char* p_str, int length, DataTimeFormat_e type)
       , st.wMinute
       , st.wSecond
       , st.wMilliseconds
-    );    
+    );
+  }
+
+  break;
+  case DataTimeFormat_e::YYYYMMDD_HHMMSS_square_brackets:
+  {
+    sprintf_s(p_str, length, "[%04d-%02d-%02d] [%02d:%02d:%02d] "
+      , st.wYear
+      , st.wMonth
+      , st.wDay
+      , st.wHour
+      , st.wMinute
+      , st.wSecond
+    );
+  }
+  break;
+  case DataTimeFormat_e::YYYYMMDD_HHMMSS_space:
+  default:
+  {
+    sprintf_s(p_str, length, "%04d-%02d-%02d %02d:%02d:%02d "
+      , st.wYear
+      , st.wMonth
+      , st.wDay
+      , st.wHour
+      , st.wMinute
+      , st.wSecond
+    );
   }
   break;
   }
 
-  /*
 
+#if 0
   time_t timetClock;
   struct tm tmNewTime;
 
@@ -403,6 +447,7 @@ void trans::DateFormStr(char* p_str, int length, DataTimeFormat_e type)
   time(&timetClock);
   // Convert time to struct  tm form 
   localtime_s(&tmNewTime, &timetClock);
+
   switch (type)
   {
   case DataTimeFormat_e::YYYYMMDD_HHMMSS_space:
@@ -431,8 +476,7 @@ void trans::DateFormStr(char* p_str, int length, DataTimeFormat_e type)
   }
   break;
   }
-
-  */
+#endif
 
 }
 
@@ -445,6 +489,23 @@ void trans::Left(const char* pdata, char* pdest, int size, int count)
   }
   pdest[i] = '\0';
 }
+
+
+char* trans::FindChar(const char* p_str, int size, char* find_char, bool is_back/* = true*/)
+{
+  int i = 0;
+  if (is_back)
+  {
+
+  }
+  else
+  {
+
+  }
+
+  return 0;
+}
+
 
 void trans::Replace(char* src, char find, bool upcase, char replace)
 {
@@ -626,7 +687,7 @@ int parser::json::LoadData()
 
   // 파일 크기 + NULL 공간만큼 메모리를 할당하고 0으로 초기화
   char* file_binary = nullptr;
-  file_binary = new char[size + 1]{ 0 };
+  file_binary = new char[size + 1] { 0 };
   if (file_binary != nullptr)
   {
     // 파일 내용 읽기
@@ -708,7 +769,7 @@ void parser::json::parsing(char* p_data, uint32_t size)
     }
     break;
     case state_t::partition:
-    { 
+    {
       if (data == ':')
       {
         state = state_t::value;

@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "framework_def.h"
+#include "hal_def.h"
 
 #include "netSocket.h"
 

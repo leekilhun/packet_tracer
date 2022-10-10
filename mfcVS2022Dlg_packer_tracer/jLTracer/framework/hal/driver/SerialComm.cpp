@@ -1,8 +1,7 @@
 #include "pch.h"
-#include "framework_def.h"
 
+#include "hal_def.h"
 #include "SerialComm.h"
-
 #include <mutex>
 
 
@@ -11,7 +10,7 @@
 #endif
 
 
-#if 1
+#ifdef USE_HW_SERIAL_COMM
 
 static std::mutex serialComm_mutex;
 
@@ -306,6 +305,14 @@ uint32_t SerialComm::readData()
   ret = length;
 
   return ret;
+}
+
+errno_t SerialComm::PortOpen(char* port_name, uint32_t baud)
+{
+  m_Serialcfg.SetPortName(port_name);
+  m_Serialcfg.baudrate = baud;
+
+  return openPort(m_Serialcfg.GetPortName(), m_Serialcfg.baudrate);
 }
 
 

@@ -93,7 +93,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(ProjectDir);.\framework\;.\framework\hw\;.\framework\common\;.\framework\interface\;.\framework\system\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);.\framework\;.\framework\hal\;.\framework\common\;.\framework\hal\interface\;.\framework\system\;.\framework\hal\_inc\;.\framework\hal\driver\;.\framework\hal\maker\;.\ui\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -166,6 +166,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(ProjectDir);.\framework\;.\framework\hal\;.\framework\common\;.\framework\hal\interface\;.\framework\system\;.\framework\hal\_inc\;.\framework\hal\driver\;.\framework\hal\maker\;.\ui\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -186,15 +187,29 @@
   <ItemGroup>
     <ClInclude Include="framework.h" />
     <ClInclude Include="framework\common\binary.h" />
+    <ClInclude Include="framework\common\cli.h" />
+    <ClInclude Include="framework\common\syslog.h" />
     <ClInclude Include="framework\common\util.h" />
     <ClInclude Include="framework\def.h" />
     <ClInclude Include="framework\framework_def.h" />
-    <ClInclude Include="framework\hw\netSocket.h" />
-    <ClInclude Include="framework\hw\SerialComm.h" />
-    <ClInclude Include="framework\interface\IComm.h" />
-    <ClInclude Include="framework\interface\Icommon.h" />
-    <ClInclude Include="framework\interface\IDistMeasure.h" />
-    <ClInclude Include="framework\interface\IIO.h" />
+    <ClInclude Include="framework\hal\hal.h" />
+    <ClInclude Include="framework\hal\hal_def.h" />
+    <ClInclude Include="framework\hal\interface\IAxis.h" />
+    <ClInclude Include="framework\hal\interface\IComm.h" />
+    <ClInclude Include="framework\hal\interface\Icommon.h" />
+    <ClInclude Include="framework\hal\interface\IDistMeasure.h" />
+    <ClInclude Include="framework\hal\interface\IIO.h" />
+    <ClInclude Include="framework\hal\_inc\comport_serial.h" />
+    <ClInclude Include="framework\hal\_inc\dist_measure_sick.h" />
+    <ClInclude Include="framework\hal\_inc\io_fastech.h" />
+    <ClInclude Include="framework\hal\_inc\motor_fastech.h" />
+    <ClInclude Include="framework\hal\_inc\motor_fastech_comm.h" />
+    <ClInclude Include="framework\hal\_inc\motor_fastech_reg.h" />
+    <ClInclude Include="framework\hal\_inc\motor_moons.h" />
+    <ClInclude Include="framework\hal\_inc\motor_moons_reg.h" />
+    <ClInclude Include="framework\hal\_inc\motor_oriental.h" />
+    <ClInclude Include="framework\hal\_inc\netSocket.h" />
+    <ClInclude Include="framework\hal\_inc\SerialComm.h" />
     <ClInclude Include="framework\system\system.h" />
     <ClInclude Include="framework\system\system_def.h" />
     <ClInclude Include="jLTracer.h" />
@@ -202,11 +217,20 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="ui\CFormDlg_formMoons.h" />
+    <ClInclude Include="ui\CFormDlg_formN4dio.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="framework\common\cli.cpp" />
+    <ClCompile Include="framework\common\syslog.cpp" />
     <ClCompile Include="framework\common\util.cpp" />
-    <ClCompile Include="framework\hw\netSocket.cpp" />
-    <ClCompile Include="framework\hw\SerialComm.cpp" />
+    <ClCompile Include="framework\hal\driver\netSocket.cpp" />
+    <ClCompile Include="framework\hal\driver\SerialComm.cpp" />
+    <ClCompile Include="framework\hal\maker\fastech\io_fastech.cpp" />
+    <ClCompile Include="framework\hal\maker\fastech\motor_fastech.cpp" />
+    <ClCompile Include="framework\hal\maker\fastech\motor_fastech_comm.cpp" />
+    <ClCompile Include="framework\hal\maker\moons\motor_moons.cpp" />
+    <ClCompile Include="framework\hal\maker\sick\dist_measure_sick.cpp" />
     <ClCompile Include="framework\system\system.cpp" />
     <ClCompile Include="jLTracer.cpp" />
     <ClCompile Include="jLTracerDlg.cpp" />
@@ -216,6 +240,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="ui\CFormDlg_formMoons.cpp" />
+    <ClCompile Include="ui\CFormDlg_formN4dio.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="jLTracer.rc" />
@@ -224,7 +250,11 @@
     <None Include="res\jLTracer.rc2" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="res\bitmapTabMain.bmp" />
+    <Image Include="res\greenButton.bmp" />
     <Image Include="res\jLTracer.ico" />
+    <Image Include="res\redButton.bmp" />
+    <Image Include="res\Stop.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

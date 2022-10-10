@@ -45,7 +45,8 @@ class apSystem
   char m_ProjectDir[_MAX_DIR];
 
   //netSocket* m_pNetComm;
-
+  flag::fdata m_dat;
+  sysLog m_log;
   SerialComm* m_pSerialComm;
 
 public:

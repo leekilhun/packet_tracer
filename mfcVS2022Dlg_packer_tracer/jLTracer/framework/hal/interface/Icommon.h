@@ -100,6 +100,7 @@ namespace common
 
 }
 
+
 class Icommon
 {
 	/****************************************************
@@ -114,25 +115,24 @@ protected:
 	common::Attribute_t m_Attribute;
 
 	/** Log */
-	//MLog* m_pLogMng;
+	sysLog m_log;
 
 	/****************************************************
 	 *	Constructor
 	 ****************************************************/
 public:
-	Icommon()/* :m_pLogMng(nullptr)*/ {
-		//m_pLogMng = new MLog;
+	Icommon() 
+	{
 	};
-	Icommon(common::Attribute_t commonData) {
-		m_Attribute = commonData;
-		//m_pLogMng = new MLog;
+	Icommon(common::Attribute_t commonData): m_Attribute(commonData)
+	{		
 	}
 
 	/** @destructor */
 	virtual ~Icommon() {
-		/*if (m_pLogMng != nullptr)
-			delete m_pLogMng;
-		m_pLogMng = nullptr;*/
+		/*if (m_plog != nullptr)
+			delete m_plog;
+		m_plog = nullptr;*/
 	}
 
 	/****************************************************
