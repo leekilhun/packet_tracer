@@ -316,7 +316,6 @@ errno_t SerialComm::PortOpen(char* port_name, uint32_t baud)
 }
 
 
-
 void SerialComm::threadJob(void)
 {
 

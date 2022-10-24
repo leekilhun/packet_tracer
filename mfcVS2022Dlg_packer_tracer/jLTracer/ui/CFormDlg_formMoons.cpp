@@ -14,7 +14,6 @@
 //static void receiveDataCB(void* obj, void* w_parm, void* l_parm);
 
 
-
 IMPLEMENT_DYNAMIC(CformMoons, CDialogEx)
 
 CformMoons::CformMoons(CWnd* pParent /*=nullptr*/)
@@ -26,6 +25,10 @@ CformMoons::CformMoons(CWnd* pParent /*=nullptr*/)
 	CjLTracerApp* pApp = (CjLTracerApp*)AfxGetApp();
 	m_pSystem = pApp->GetSystem();
 	m_pSerialport = m_pSystem->GetSerialCommComponent();
+
+
+	m_mtStatus.sc_status = 0;
+	m_mtAlarmCode.al_status = 0;
 	
 }
 
@@ -36,6 +39,19 @@ CformMoons::~CformMoons()
 void CformMoons::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_MOONS_TXT_INTERVAL, m_txtIntervalTime);
+	DDX_Control(pDX, IDC_MOONS_CHK_MONITOR, m_chkMonitor);
+	DDX_Control(pDX, IDC_MOONS_TXT_DRIVESTATUS, m_txtDriveStatus);
+	DDX_Control(pDX, IDC_MOONS_TXT_ALARMCODE, m_txtAlarmCode);
+	DDX_Control(pDX, IDC_MOONS_TXT_ACTUALSPEED, m_txtActualSpeed);
+	DDX_Control(pDX, IDC_MOONS_TXT_TARGETSPEED, m_txtTargetSpeed);
+	DDX_Control(pDX, IDC_MOONS_TXT_ENCODERPOSITION, m_txtEncoderPos);
+	DDX_Control(pDX, IDC_MOONS_EDIT_POSMODE_VELOCITY, m_editVelocity);
+	DDX_Control(pDX, IDC_MOONS_EDIT_POSMODE_ACCEL, m_editAccel);
+	DDX_Control(pDX, IDC_MOONS_EDIT_POSMODE_DECEL, m_editDecel);
+	DDX_Control(pDX, IDC_MOONS_EDIT_POSMODE_ABSMOVE_POS, m_editAbsPosition);
+	DDX_Control(pDX, IDC_MOONS_EDIT_POSMODE_RELMOVE_POS, m_editRelPosition);
+	DDX_Control(pDX, IDC_MOONS_CMB_POSMOVE_DIR, m_cmbDirection);
 }
 
 
@@ -50,20 +66,26 @@ errno_t CformMoons::Init(CformMoons::cfg_t& cfg)
 
 
 BEGIN_MESSAGE_MAP(CformMoons, CDialogEx)
-	ON_BN_CLICKED(IDC_BUTTON1, &CformMoons::OnBnClickedButton1)
+	ON_BN_CLICKED(IDC_MOONS_BTN_04, &CformMoons::OnBnClickedMoonsBtnJogCw)
+	ON_BN_CLICKED(IDC_MOONS_BTN_05, &CformMoons::OnBnClickedMoonsBtnJogCcw)
 	ON_WM_DESTROY()
 	ON_WM_SHOWWINDOW()
 	ON_WM_TIMER()
+	ON_BN_CLICKED(IDC_MOONS_BTN_1, &CformMoons::OnBnClickedMoonsBtn1)
+	ON_BN_CLICKED(IDC_MOONS_BTN_2, &CformMoons::OnBnClickedMoonsBtn2)
+	ON_BN_CLICKED(IDC_MOONS_BTN_3, &CformMoons::OnBnClickedMoonsBtn3)
+	ON_BN_CLICKED(IDC_MOONS_BTN_4, &CformMoons::OnBnClickedMoonsBtn4)
+	ON_BN_CLICKED(IDC_MOONS_BTN_5, &CformMoons::OnBnClickedMoonsBtn5)
+	ON_BN_CLICKED(IDC_MOONS_BTN_POSMODE_ABSMOVE_START, &CformMoons::OnBnClickedMoonsBtnPosmodeAbsmoveStart)
+	ON_BN_CLICKED(IDC_MOONS_BTN_POSMODE_ABSMOVE_STOP, &CformMoons::OnBnClickedMoonsBtnPosmodeAbsmoveStop)
+	ON_BN_CLICKED(IDC_MOONS_BTN_POSMODE_RELMOVE_START, &CformMoons::OnBnClickedMoonsBtnPosmodeRelmoveStart)
+	ON_BN_CLICKED(IDC_MOONS_BTN_POSMODE_RELMOVE_STOP, &CformMoons::OnBnClickedMoonsBtnPosmodeRelmoveStop)
+	ON_BN_CLICKED(IDC_MOONS_BTN_6, &CformMoons::OnBnClickedMoonsBtn6)
 END_MESSAGE_MAP()
 
 
 // CformMoons 메시지 처리기
 
-
-void CformMoons::OnBnClickedButton1()
-{
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-}
 
 
 BOOL CformMoons::OnInitDialog()
@@ -71,6 +93,16 @@ BOOL CformMoons::OnInitDialog()
 	CDialogEx::OnInitDialog();
 
 	// TODO:  여기에 추가 초기화 작업을 추가합니다.
+	m_txtIntervalTime.SetWindowText(L"100");
+	m_editVelocity.SetWindowText(L"10");
+	m_editAccel.SetWindowText(L"100");
+	m_editDecel.SetWindowText(L"100");
+	m_editAbsPosition.SetWindowText(L"20000");
+	m_editRelPosition.SetWindowText(L"20000");
+	m_cmbDirection.InsertString(0, L"CW");
+	m_cmbDirection.InsertString(1, L"CCW");
+	m_cmbDirection.SetCurSel(0);
+
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
@@ -128,6 +160,27 @@ void CformMoons::OnTimer(UINT_PTR nIDEvent)
 BOOL CformMoons::PreTranslateMessage(MSG* pMsg)
 {
 	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
+	if (pMsg->message == WM_LBUTTONUP)
+	{
+		if (pMsg->hwnd == GetDlgItem(IDC_MOONS_BTN_04)->m_hWnd
+			|| pMsg->hwnd == GetDlgItem(IDC_MOONS_BTN_05)->m_hWnd)
+		{
+			motorStop();
+		}
+
+		//switch (pMsg->wParam)
+		//{
+		//case VK_ESCAPE:
+		//	break;
+		//case VK_RETURN:
+		//{
+		//			return true;
+		//}
+		//break;
+		//default:
+		//	break;
+		//}
+	}
 
 	return CDialogEx::PreTranslateMessage(pMsg);
 }
@@ -157,7 +210,6 @@ void CformMoons::update()
 {
 	// TODO: 여기에 구현 코드 추가.
 	
-	
 	if (m_TrdLock == false)
 	{
 		if (receivePacket() == true)
@@ -165,8 +217,24 @@ void CformMoons::update()
 			receiveCplt();
 		}
 	}
-	
-	
+
+
+	if (m_chkMonitor.GetCheck())
+	{
+		CString value;
+	}
+	//if (IsDlgButtonChecked(IDC_MOONS_CHK_MONITOR))
+	//{
+	//	CString value;
+
+	//}
+
+	CString str;
+	str.Format(L"0x%04X", m_mtStatus.sc_status);
+	m_txtDriveStatus.SetWindowText(str);
+	str.Format(L"0x%04X", m_mtAlarmCode.al_status);
+	m_txtAlarmCode.SetWindowText(str);
+
 
 }
 
@@ -315,7 +383,7 @@ void CformMoons::receiveCplt()
 		{
 			for (uint32_t i = 0; i < m_packet.index; i++)
 			{
-				msg.push_back(m_packet.rx_packet.buffer[i]);
+				msg.emplace_back(m_packet.rx_packet.buffer[i]);
 			}
 
 			int size = (int)msg.size();
@@ -344,8 +412,8 @@ int CformMoons::SendPacket(char** args, uint32_t argc)
 	uint16_t result_crc = 0xFFFF;
 	uint16_t ret_crc = (uint16_t)util::crc16_modbus_cal(&send_data[0], (uint32_t)send_data.size());
 
-	send_data.push_back((uint8_t)ret_crc);
-	send_data.push_back((uint8_t)(ret_crc >> 8));
+	send_data.emplace_back((uint8_t)ret_crc);
+	send_data.emplace_back((uint8_t)(ret_crc >> 8));
 
 	if (this->sendPacketWaitRxResp(&send_data[0], (uint32_t)send_data.size(), 1000) != true)
 	{
@@ -417,7 +485,95 @@ int CformMoons::SendPacket(char** args, uint32_t argc)
 
 
 
-	return 0;
+	return ret;
+}
+
+int CformMoons::SendData(char* p_data, uint32_t length)
+{
+
+	int ret = ERROR_SUCCESS;
+
+	std::vector<char> v_str(length);
+	for (size_t i = 0; i < length; i++)
+	{
+		v_str[i] = p_data[i];
+	}
+	uint8_t idx = 0;
+	uint16_t result_crc = 0xFFFF;
+	uint16_t ret_crc = (uint16_t)util::crc16_modbus_cal((uint8_t*)p_data, length);
+
+	v_str.emplace_back((uint8_t)ret_crc);
+	v_str.emplace_back((uint8_t)(ret_crc >> 8));
+
+	if (this->sendPacketWaitRxResp((uint8_t*)v_str.data(), (uint32_t)v_str.size(), 1000) != true)
+	{
+		ERR_PRINT("fail! moons_motor send packet data");
+		ret = -1;
+	}
+
+
+	{ //TX
+		std::vector<char> msg{ 'T','X' };
+		for (char&elm : v_str)
+		{
+			msg.emplace_back(elm);
+		}
+
+		msg.emplace_back('\r');
+		msg.emplace_back('\n');
+		int size = (int)msg.size();
+
+		for (char &elm : msg)
+		{
+			::PostMessage((HWND)m_hWind, WM_TRACER_MAIN_MESSAGE, 0, (LPARAM)elm);
+		}
+		/*if (m_cbObj)
+		{
+			m_func(m_cbObj, &size, &msg[0]);
+		}*/
+	}
+
+	{//RX
+		std::vector<char> msg{ 'R','X' , (char)ret };
+		if (ret != ERROR_SUCCESS)
+		{
+			for (char elm : "wait packet timeout!")
+			{
+				msg.emplace_back(elm);
+			}
+
+			for (char &elm : msg)
+			{
+				::PostMessage((HWND)m_hWind, WM_TRACER_MAIN_MESSAGE, 0, (LPARAM)elm);
+			}
+			int size = (int)msg.size();
+			/*if (m_cbObj)
+			{
+				m_func(m_cbObj, &size, &msg[0]);
+			}*/
+		}
+		else
+		{
+			for (uint32_t i = 0; i < m_packet.index; i++)
+			{
+				msg.emplace_back(m_packet.rx_packet.buffer[i]);
+			}
+
+			int size = (int)msg.size();
+			for (char &elm : msg)
+			{
+				::PostMessage((HWND)m_hWind, WM_TRACER_MAIN_MESSAGE, 0, (LPARAM)elm);
+			}
+			/*if (m_cbObj)
+			{
+				m_func(m_cbObj, &size, &msg[0]);
+			}*/
+		}
+	}
+
+
+
+	return ret;
 }
 
 
@@ -453,4 +609,430 @@ bool CformMoons::sendPacketWaitRxResp(uint8_t* p_data, uint32_t length, uint32_t
 	m_TrdLock = false;
 
 	return ret;
+}
+
+
+void CformMoons::OnBnClickedMoonsBtn1()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	if (m_pComm->IsOpened() == false)
+		return;
+
+  constexpr int array_max = 6;
+	uint8_t  func = static_cast<uint8_t>(func_e::write_SingleReg);
+ 	uint16_t regist_no = static_cast<uint16_t>(reg_e::cmd_Opcode);
+	uint16_t code = static_cast<uint16_t>(Opcode_e::motor_enable);
+  std::array<uint8_t, array_max> c_str = 
+	{
+		m_nodeId, 
+    func,
+    (uint8_t)(regist_no >> 8),
+    (uint8_t)regist_no ,
+		(uint8_t)(code >> 8),
+    (uint8_t)code 
+  };
+
+	SendData((char*)c_str.data(), (uint32_t)c_str.size());
+
+
+}
+
+
+void CformMoons::OnBnClickedMoonsBtn2()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	if (m_pComm->IsOpened() == false)
+		return;
+
+	constexpr int array_max = 6;
+	uint8_t  func = static_cast<uint8_t>(func_e::write_SingleReg);
+	uint16_t regist_no = static_cast<uint16_t>(reg_e::cmd_Opcode);
+	uint16_t code = static_cast<uint16_t>(Opcode_e::motor_disable);
+	std::array<uint8_t, array_max> c_str =
+	{
+		m_nodeId,
+		func,
+		(uint8_t)(regist_no >> 8),
+		(uint8_t)regist_no ,
+		(uint8_t)(code >> 8),
+		(uint8_t)code 
+	};
+
+	SendData((char*)c_str.data(), (uint32_t)c_str.size());
+}
+
+
+void CformMoons::OnBnClickedMoonsBtn3()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	if (m_pComm->IsOpened() == false)
+		return;
+
+	constexpr int array_max = 6;
+	uint8_t  func = static_cast<uint8_t>(func_e::write_SingleReg);
+	uint16_t regist_no = static_cast<uint16_t>(reg_e::cmd_Opcode);
+	uint16_t code = static_cast<uint16_t>(Opcode_e::alarm_reset);
+	std::array<uint8_t, array_max> c_str =
+	{
+		m_nodeId,
+		func,
+		(uint8_t)(regist_no >> 8),
+		(uint8_t)regist_no ,
+		(uint8_t)(code >> 8),
+		(uint8_t)code 
+	};
+
+	SendData((char*)c_str.data(), (uint32_t)c_str.size());
+}
+
+
+void CformMoons::OnBnClickedMoonsBtnJogCw()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	if (m_pComm->IsOpened() == false)
+		return;
+	constexpr int CCW = -100;
+	if(setPosition(CCW) != ERROR_SUCCESS)
+	{
+		return;
+	}
+	startJogging();
+	
+}
+
+
+void CformMoons::OnBnClickedMoonsBtnJogCcw()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	if (m_pComm->IsOpened() == false)
+		return;
+
+	constexpr int CW = 100;
+	if (setPosition(CW) != ERROR_SUCCESS)
+	{
+		return;
+	}
+	startJogging();
+}
+
+
+void CformMoons::OnBnClickedMoonsBtn4()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	if (m_pComm->IsOpened() == false)
+		return;
+
+	constexpr int array_max = 6;
+	uint8_t  func = static_cast<uint8_t>(func_e::write_SingleReg);
+	uint16_t regist_no = static_cast<uint16_t>(reg_e::cmd_Opcode);
+	uint16_t code = static_cast<uint16_t>(Opcode_e::seek_home);
+	std::array<uint8_t, array_max> c_str =
+	{
+		m_nodeId,
+		func,
+		(uint8_t)(regist_no >> 8),
+		(uint8_t)regist_no ,
+		(uint8_t)(code >> 8),
+		(uint8_t)code
+	};
+
+	SendData((char*)c_str.data(), (uint32_t)c_str.size());
+}
+
+
+void CformMoons::OnBnClickedMoonsBtn5()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	if (m_pComm->IsOpened() == false)
+		return;
+
+	constexpr int array_max = 6;
+	uint8_t  func = static_cast<uint8_t>(func_e::read_HoldingReg);
+	uint16_t regist_no = static_cast<uint16_t>(reg_e::alarm_code);
+	uint16_t data_cnt = 4;
+	std::array<uint8_t, array_max> c_str =
+	{
+		m_nodeId,
+		func,
+		(uint8_t)(regist_no >> 8),
+		(uint8_t)regist_no ,
+		(uint8_t)(data_cnt >> 8),
+		(uint8_t)data_cnt
+	};
+
+	errno_t result = SendData((char*)c_str.data(), (uint32_t)c_str.size());
+
+	if (result == ERROR_SUCCESS)
+	{
+		m_mtStatus.sc_status = (uint16_t)(m_packet.rx_packet.data[2]<<8) | (uint16_t)(m_packet.rx_packet.data[3]<<0);
+		m_mtAlarmCode.al_status = (uint16_t)(m_packet.rx_packet.data[0] << 8) | (uint16_t)(m_packet.rx_packet.data[1] << 0);
+	}
+
+}
+
+
+void CformMoons::OnBnClickedMoonsBtnPosmodeAbsmoveStart()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	if (m_pComm->IsOpened() == false)
+		return;
+
+	constexpr int array_max = 6;
+	uint8_t  func = static_cast<uint8_t>(func_e::write_SingleReg);
+	uint16_t regist_no = static_cast<uint16_t>(reg_e::cmd_Opcode);
+	uint16_t code = static_cast<uint16_t>(Opcode_e::feed_to_length);
+	std::array<uint8_t, array_max> c_str =
+	{
+		m_nodeId,
+		func,
+		(uint8_t)(regist_no >> 8),
+		(uint8_t)regist_no ,
+		(uint8_t)(code >> 8),
+		(uint8_t)code
+	};
+}
+
+
+void CformMoons::OnBnClickedMoonsBtnPosmodeAbsmoveStop()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+
+	motorStop();
+
+}
+
+
+void CformMoons::OnBnClickedMoonsBtnPosmodeRelmoveStart()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	if (m_pComm->IsOpened() == false)
+		return;
+
+	constexpr int array_max = 6;
+	uint8_t  func = static_cast<uint8_t>(func_e::write_SingleReg);
+	uint16_t regist_no = static_cast<uint16_t>(reg_e::cmd_Opcode);
+	uint16_t code = static_cast<uint16_t>(Opcode_e::feed_to_position);
+	std::array<uint8_t, array_max> c_str =
+	{
+		m_nodeId,
+		func,
+		(uint8_t)(regist_no >> 8),
+		(uint8_t)regist_no ,
+		(uint8_t)(code >> 8),
+		(uint8_t)code
+	};
+}
+
+
+void CformMoons::OnBnClickedMoonsBtnPosmodeRelmoveStop()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	motorStop();
+}
+
+
+void CformMoons::updateMotorStatus()
+{
+	// TODO: 여기에 구현 코드 추가.
+}
+
+
+void CformMoons::motorStop()
+{
+	// TODO: 여기에 구현 코드 추가.
+	if (m_pComm->IsOpened() == false)
+		return;
+
+	constexpr int array_max = 6;
+	uint8_t  func = static_cast<uint8_t>(func_e::write_SingleReg);
+	uint16_t regist_no = static_cast<uint16_t>(reg_e::cmd_Opcode);
+	uint16_t code = static_cast<uint16_t>(Opcode_e::stop_move_kill_buffer);
+	std::array<uint8_t, array_max> c_str =
+	{
+		m_nodeId,
+		func,
+		(uint8_t)(regist_no >> 8),
+		(uint8_t)regist_no ,
+		(uint8_t)(code >> 8),
+		(uint8_t)code
+	};
+
+	errno_t result = SendData((char*)c_str.data(), (uint32_t)c_str.size());
+}
+
+
+void CformMoons::OnBnClickedMoonsBtn6()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	if (m_pComm->IsOpened() == false)
+		return;
+
+	constexpr int array_max = 6;
+	uint8_t  func = static_cast<uint8_t>(func_e::write_SingleReg);
+	uint16_t regist_no = static_cast<uint16_t>(reg_e::cmd_Opcode);
+	uint16_t code = static_cast<uint16_t>(Opcode_e::encoder_position);
+	std::array<uint8_t, array_max> c_str =
+	{
+		m_nodeId,
+		func,
+		(uint8_t)(regist_no >> 8),
+		(uint8_t)regist_no ,
+		(uint8_t)(code >> 8),
+		(uint8_t)code
+	};
+
+	errno_t result = SendData((char*)c_str.data(), (uint32_t)c_str.size());
+}
+
+
+int CformMoons::setPosition(int position)
+{
+	// TODO: 여기에 구현 코드 추가.
+	constexpr int array_max = 11;
+	uint8_t  func = static_cast<uint8_t>(func_e::write_MultiReg);
+	uint16_t regist_no = static_cast<uint16_t>(reg_e::set_dest_distance);
+	uint16_t reg_cnt = 2;
+	uint8_t data_cnt = 4;
+	std::array<uint8_t, array_max> c_str =
+	{
+		m_nodeId,
+		func,
+		(uint8_t)(regist_no >> 8),
+		(uint8_t)regist_no ,
+		(uint8_t)(reg_cnt >> 8),
+		(uint8_t)reg_cnt,
+		(uint8_t)data_cnt,
+		(uint8_t)(position >> 24),
+		(uint8_t)(position >> 16),
+		(uint8_t)(position >> 8),
+		(uint8_t)(position >> 0)
+	};
+
+	int result = SendData((char*)c_str.data(), (uint32_t)c_str.size());
+	
+
+	return result;
+}
+
+
+void CformMoons::startJogging()
+{
+	// TODO: 여기에 구현 코드 추가.
+	constexpr int array_max = 6;
+	uint8_t  func = static_cast<uint8_t>(func_e::write_SingleReg);
+	uint16_t regist_no = static_cast<uint16_t>(reg_e::cmd_Opcode);
+	uint16_t code = static_cast<uint16_t>(Opcode_e::start_jogging);
+	std::array<uint8_t, array_max> c_str =
+	{
+		m_nodeId,
+		func,
+		(uint8_t)(regist_no >> 8),
+		(uint8_t)regist_no ,
+		(uint8_t)(code >> 8),
+		(uint8_t)code
+	};
+
+	SendData((char*)c_str.data(), (uint32_t)c_str.size());
+}
+
+
+int CformMoons::setJogAccel(uint16_t accel)
+{
+	// TODO: 여기에 구현 코드 추가.
+	constexpr int array_max = 6;
+	uint8_t  func = static_cast<uint8_t>(func_e::write_SingleReg);
+	uint16_t regist_no = static_cast<uint16_t>(reg_e::jog_accel);
+	uint16_t data = accel;
+	std::array<uint8_t, array_max> c_str =
+	{
+		m_nodeId,
+		func,
+		(uint8_t)(regist_no >> 8),
+		(uint8_t)regist_no ,
+		(uint8_t)(data >> 8),
+		(uint8_t)(data >> 0)
+	};
+
+	
+	return SendData((char*)c_str.data(), (uint32_t)c_str.size());
+}
+
+
+int CformMoons::setJogDecel(uint16_t decel)
+{
+	// TODO: 여기에 구현 코드 추가.
+	constexpr int array_max = 6;
+	uint8_t  func = static_cast<uint8_t>(func_e::write_SingleReg);
+	uint16_t regist_no = static_cast<uint16_t>(reg_e::jog_decel);
+	uint16_t data = decel;
+	std::array<uint8_t, array_max> c_str =
+	{
+		m_nodeId,
+		func,
+		(uint8_t)(regist_no >> 8),
+		(uint8_t)regist_no ,
+		(uint8_t)(data >> 8),
+		(uint8_t)(data >> 0)
+	};
+	return SendData((char*)c_str.data(), (uint32_t)c_str.size());
+}
+
+
+int CformMoons::setMaxVelocity(uint16_t velocity)
+{
+	// TODO: 여기에 구현 코드 추가.
+	constexpr int array_max = 6;
+	uint8_t  func = static_cast<uint8_t>(func_e::write_SingleReg);
+	uint16_t regist_no = static_cast<uint16_t>(reg_e::max_velocity);
+	uint16_t data = velocity;
+	std::array<uint8_t, array_max> c_str =
+	{
+		m_nodeId,
+		func,
+		(uint8_t)(regist_no >> 8),
+		(uint8_t)regist_no ,
+		(uint8_t)(data >> 8),
+		(uint8_t)(data >> 0)
+	};
+	return SendData((char*)c_str.data(), (uint32_t)c_str.size());
+}
+
+
+int CformMoons::setAccel(uint16_t accel)
+{
+	// TODO: 여기에 구현 코드 추가.
+	constexpr int array_max = 6;
+	uint8_t  func = static_cast<uint8_t>(func_e::write_SingleReg);
+	uint16_t regist_no = static_cast<uint16_t>(reg_e::move_accel);
+	uint16_t data = accel;
+	std::array<uint8_t, array_max> c_str =
+	{
+		m_nodeId,
+		func,
+		(uint8_t)(regist_no >> 8),
+		(uint8_t)regist_no ,
+		(uint8_t)(data >> 8),
+		(uint8_t)(data >> 0)
+	};
+	return SendData((char*)c_str.data(), (uint32_t)c_str.size());
+}
+
+
+int CformMoons::setDecel(uint16_t decel)
+{
+	// TODO: 여기에 구현 코드 추가.
+	constexpr int array_max = 6;
+	uint8_t  func = static_cast<uint8_t>(func_e::write_SingleReg);
+	uint16_t regist_no = static_cast<uint16_t>(reg_e::move_decel);
+	uint16_t data = decel;
+	std::array<uint8_t, array_max> c_str =
+	{
+		m_nodeId,
+		func,
+		(uint8_t)(regist_no >> 8),
+		(uint8_t)regist_no ,
+		(uint8_t)(data >> 8),
+		(uint8_t)(data >> 0)
+	};
+	return SendData((char*)c_str.data(), (uint32_t)c_str.size());
 }

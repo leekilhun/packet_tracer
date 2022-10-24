@@ -259,6 +259,8 @@ void CjLTracerDlg::OnShowWindow(BOOL bShow, UINT nStatus)
 		m_ptabMoons->ShowWindow(SW_SHOW);
 		m_ptabN4dio->ShowWindow(SW_HIDE);
 		CformMoons::cfg_t cfg;
+		m_NodeId = (int)m_SelNodeId.GetItemData(m_SelNodeId.GetCurSel());//(int)GetDlgItemInt(IDC_COMBO_NODE_ID);
+
 		cfg.AxisId = m_NodeId;
 		cfg.pComm = m_pSerialport;
 		m_ptabMoons->Init(cfg);
