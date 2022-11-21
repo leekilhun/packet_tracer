@@ -1,0 +1,128 @@
+[
+  {
+    "Common": [
+      { "MODEL_NAME": "N20_C2" },
+      { "MODEL_DIR": "./Model" },
+      { "PASSWORD": "1234" },
+      { "LANGUAGE_SELECT": 0 },
+      { "RUN_MODE": "NORMAL" },
+      { "MACHINE_NO": "SN_1" },
+      { "MACHINE_NAME": "TapeCutUnit" }
+    ],
+    "Operation": [
+      { "USE_BUZZER": false },
+      { "USE_DOOR": false },
+      { "USE_MES": false },
+      { "SHIFT_A_TIME": 7 },
+      { "SHIFT_C_TIME": 21 },
+      { "RETAY_MAX_CNT": 3 }
+    ],
+    "SerialComm_MOONS": [
+      { "NAME": "MOONS MOTOR_485" },
+      { "PORT_NAME": "COM10" },
+      { "BAUDRATE": 115200 }
+    ],
+    "SerialComm ORIENTAL": [
+      { "NAME": "ORIENTAL_485" },
+      { "PORT_NAME": "COM11" },
+      { "BAUDRATE": 115200 }
+    ],
+    "SerialComm SICK": [
+      { "NAME": "SICK_422" },
+      { "PORT_NAME": "COM8" },
+      { "BAUDRATE": 9600 }
+    ],
+    "NetSocket_UPS 0": [
+      { "NAME": "UPS 0 NETSOCKET" },
+      { "IP": "192.168.0.20" },
+      { "PORT": 2001 },
+      { "MODE": "TCP_CLIENT" }
+    ],
+    "NetSocket_UPS 1": [
+      { "NAME": "UPS 1 NETSOCKET" },
+      { "IP": "192.168.0.21" },
+      { "PORT": 2001 },
+      { "MODE": "TCP_CLIENT" }
+    ],
+    "NetSocket_FANUC": [
+      { "NAME": "FANUC NETSOCKET" },
+      { "IP": "192.168.0.200" },
+      { "PORT": 11111 },
+      { "MODE": "TCP_CLIENT" }
+    ],
+    "NetSocket_FASTECH_IO_CB_0": [
+      { "NAME": "FASTECH_IO_I16 C-BOX 0" },
+      { "IP": "192.168.0.30" },
+      { "PORT": 2001 },
+      { "MODE": "TCP_CLIENT" }
+    ],
+    "NetSocket_FASTECH_IO_CB_1": [
+      { "NAME": "FASTECH_IO_I16 C-BOX 1" },
+      { "IP": "192.168.0.31" },
+      { "PORT": 2001 },
+      { "MODE": "TCP_CLIENT" }
+    ],
+    "NetSocket_FASTECH_IO_CB_2": [
+      { "NAME": "FASTECH_IO_O16 C-BOX 2" },
+      { "IP": "192.168.0.32" },
+      { "PORT": 2001 },
+      { "MODE": "TCP_CLIENT" }
+    ],
+    "NetSocket_FASTECH_IO_CB_3": [
+      { "NAME": "FASTECH_IO_016 C-BOX 3" },
+      { "IP": "192.168.0.33" },
+      { "PORT": 2001 },
+      { "MODE": "TCP_CLIENT" }
+    ],
+    "NetSocket_FASTECH_IO_TC_0": [
+      { "NAME": "FASTECH_IO_I16O16 Tape Cut 0" },
+      { "IP": "192.168.0.34" },
+      { "PORT": 2001 },
+      { "MODE": "TCP_CLIENT" }
+    ],
+    "NetSocket_FASTECH_IO_TC_1": [
+      { "NAME": "FASTECH_IO_I16O16 Tape Cut 1" },
+      { "IP": "192.168.0.35" },
+      { "PORT": 2001 },
+      { "MODE": "TCP_CLIENT" }
+    ],
+    "NetSocket_FASTECH_IO_SL_0": [
+      { "NAME": "FASTECH_IO_I16O16 Splicing Loader 0" },
+      { "IP": "192.168.0.36" },
+      { "PORT": 2001 },
+      { "MODE": "TCP_CLIENT" }
+    ],
+    "NetSocket_FASTECH_IO_SL_1": [
+      { "NAME": "FASTECH_IO_I16O16 Splicing Loader 1" },
+      { "IP": "192.168.0.37" },
+      { "PORT": 2001 },
+      { "MODE": "TCP_CLIENT" }
+    ],
+    "NetSocket_FASTECH_IO_ROBOT": [
+      { "NAME": "FASTECH_IO_I16O16 ROBOT 0" },
+      { "IP": "192.168.0.50" },
+      { "PORT": 2001 },
+      { "MODE": "TCP_CLIENT" }
+    ],
+    "NetSocket_FASTECH_MOT_TAPE_LOADER": [
+      { "NAME": "FASTECH_MOT_Tape Loader" },
+      { "IP": "192.168.0.60" },
+      { "PORT": 2001 },
+      { "MODE": "TCP_CLIENT" }
+    ],
+    "NetSocket_FASTECH_MOT_OLD_TAPE": [
+      { "NAME": "FASTECH_MOT_Old Tape Loder" },
+      { "IP": "192.168.0.61" },
+      { "PORT": 2001 },
+      { "MODE": "TCP_CLIENT" }
+    ],
+    "NetSocket_FASTECH_MOT_NEW_TAPE": [
+      { "NAME": "FASTECH_MOT_New Tape Loder" },
+      { "IP": "192.168.0.62" },
+      { "PORT": 2001 },
+      { "MODE": "TCP_CLIENT" }
+    ]
+  }
+]
+
+//

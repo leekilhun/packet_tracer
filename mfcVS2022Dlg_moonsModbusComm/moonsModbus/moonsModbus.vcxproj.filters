@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="framework">
+      <UniqueIdentifier>{e6b365e8-a620-423f-9f77-f5878a9f00b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="framework\common">
+      <UniqueIdentifier>{43b375f6-4abd-4c53-86e2-0941daf6aad2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="framework\hal">
+      <UniqueIdentifier>{946a65e0-113d-4dec-a7eb-b034e6f49a84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="framework\app">
+      <UniqueIdentifier>{deeea2ea-2e02-46cf-950f-5d91cd7a47c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="framework\app\inc">
+      <UniqueIdentifier>{930e1241-17d8-4949-b68e-b8f966c696ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="framework\app\ap">
+      <UniqueIdentifier>{57cd177d-6425-42c3-adad-1cfee699a994}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="framework\app\engine">
+      <UniqueIdentifier>{294a7ccd-2998-45bd-873c-af2dc8c9059b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="framework\app\control">
+      <UniqueIdentifier>{57a0739f-7401-4945-b712-4d3f888ac599}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="framework\hal\_inc">
+      <UniqueIdentifier>{87ad58d7-fc03-4fc0-87eb-5d9edec2da00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="framework\hal\driver">
+      <UniqueIdentifier>{a38956d0-df22-4714-967d-dc9cb70c0dee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="framework\hal\maker">
+      <UniqueIdentifier>{2357f461-dfa2-4b62-8dfe-2e4f9a763a94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="framework\hal\interface">
+      <UniqueIdentifier>{0acb5b22-b76f-4909-8e86-71fd650b9a07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="framework\hal\maker\moons">
+      <UniqueIdentifier>{d1f33306-4f74-4814-878b-5eeb5725800e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="moonsModbus.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="moonsModbusDlg.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\def.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\framework_def.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\common\syslog.h">
+      <Filter>framework\common</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\common\util.h">
+      <Filter>framework\common</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\app\system.h">
+      <Filter>framework\app</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\app\_inc\def_obj.h">
+      <Filter>framework\app\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\app\_inc\system_obj.h">
+      <Filter>framework\app\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\hal\_inc\motor_moons_comm.h">
+      <Filter>framework\hal\_inc</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\hal\_inc\motor_moons_reg.h">
+      <Filter>framework\hal\_inc</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\hal\_inc\netSocket.h">
+      <Filter>framework\hal\_inc</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\hal\_inc\SerialComm.h">
+      <Filter>framework\hal\_inc</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\hal\hal.h">
+      <Filter>framework\hal</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\hal\hal_def.h">
+      <Filter>framework\hal</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\hal\interface\IComm.h">
+      <Filter>framework\hal\interface</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\hal\interface\Icommon.h">
+      <Filter>framework\hal\interface</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\hal\_inc\motor_moons.h">
+      <Filter>framework\hal\_inc</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\hal\interface\IAxis.h">
+      <Filter>framework\hal\interface</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\app\system_def.h">
+      <Filter>framework\app</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="moonsModbus.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="moonsModbusDlg.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\common\syslog.cpp">
+      <Filter>framework\common</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\common\util.cpp">
+      <Filter>framework\common</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\app\system.cpp">
+      <Filter>framework\app</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\hal\driver\netSocket.cpp">
+      <Filter>framework\hal\driver</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\hal\driver\SerialComm.cpp">
+      <Filter>framework\hal\driver</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\hal\maker\moons\motor_moons.cpp">
+      <Filter>framework\hal\maker\moons</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\app\system_obj.cpp">
+      <Filter>framework\app</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="moonsModbus.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\moonsModbus.rc2">
+      <Filter>리소스 파일</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\moonsModbus.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

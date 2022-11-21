@@ -1,0 +1,122 @@
+[
+  {
+    "TC_cutterUnit_FB": [
+      { "TYPE": "FORWARD_BACKWARD" },
+      { "SOLENOID": "DOUBLE_SOLENOID" },
+      { "MovingTime": 2.0 },
+      { "SettlingTime1": 0.01 },
+      { "SettlingTime2": 0.01 }
+    ],
+    "TC_pressGuide_R_UD": [
+      { "TYPE": "UP_DOWN" },
+      { "SOLENOID": "DOUBLE_SOLENOID" },
+      { "MovingTime": 1.0 },
+      { "SettlingTime1": 0.01 },
+      { "SettlingTime2": 0.01 }
+    ],
+    "TC_pressGuide_L_UD": [
+      { "TYPE": "UP_DOWN" },
+      { "SOLENOID": "DOUBLE_SOLENOID" },
+      { "MovingTime": 1.0 },
+      { "SettlingTime1": 0.01 },
+      { "SettlingTime2": 0.01 }
+    ],
+    "TC_cutterKnife_UD": [
+      { "TYPE": "UP_DOWN" },
+      { "SOLENOID": "DOUBLE_SOLENOID" },
+      { "MovingTime": 1.0 },
+      { "SettlingTime1": 0.01 },
+      { "SettlingTime2": 0.01 }
+    ],
+    "TC_tapePosition_UD": [
+      { "TYPE": "UP_DOWN" },
+      { "SOLENOID": "DOUBLE_SOLENOID" },
+      { "MovingTime": 1.0 },
+      { "SettlingTime1": 0.01 },
+      { "SettlingTime2": 0.01 }
+    ],
+    "TC_holeDetector_UD": [
+      { "TYPE": "UP_DOWN" },
+      { "SOLENOID": "DOUBLE_SOLENOID" },
+      { "MovingTime": 1.0 },
+      { "SettlingTime1": 0.01 },
+      { "SettlingTime2": 0.01 }
+    ],
+    "TC_centeringTape_OC": [
+      { "TYPE": "OPEN_CLOSE" },
+      { "SOLENOID": "DOUBLE_SOLENOID" },
+      { "MovingTime": 1.0 },
+      { "SettlingTime1": 0.01 },
+      { "SettlingTime2": 0.01 }
+    ],
+    "SL_loderUD_R_UD": [
+      { "TYPE": "UP_DOWN" },
+      { "SOLENOID": "DOUBLE_SOLENOID" },
+      { "MovingTime": 2.0 },
+      { "SettlingTime1": 0.01 },
+      { "SettlingTime2": 0.01 }
+    ],
+    "SL_loderUD_L_UD": [
+      { "TYPE": "UP_DOWN" },
+      { "SOLENOID": "DOUBLE_SOLENOID" },
+      { "MovingTime": 1.0 },
+      { "SettlingTime1": 0.01 },
+      { "SettlingTime2": 0.01 }
+    ],
+    "SL_loderFB_R_FB": [
+      { "TYPE": "FORWARD_BACKWARD" },
+      { "SOLENOID": "DOUBLE_SOLENOID" },
+      { "MovingTime": 1.0 },
+      { "SettlingTime1": 0.01 },
+      { "SettlingTime2": 0.01 }
+    ],
+    "SL_loderFB_L_FB": [
+      { "TYPE": "FORWARD_BACKWARD" },
+      { "SOLENOID": "DOUBLE_SOLENOID" },
+      { "MovingTime": 1.0 },
+      { "SettlingTime1": 0.01 },
+      { "SettlingTime2": 0.01 }
+    ],
+    "SL_tapePullOut_R_FB": [
+      { "TYPE": "FORWARD_BACKWARD" },
+      { "SOLENOID": "DOUBLE_SOLENOID" },
+      { "MovingTime": 1.0 },
+      { "SettlingTime1": 0.01 },
+      { "SettlingTime2": 0.01 }
+    ],
+    "SL_tapePullOut_L_FB": [
+      { "TYPE": "FORWARD_BACKWARD" },
+      { "SOLENOID": "DOUBLE_SOLENOID" },
+      { "MovingTime": 1.0 },
+      { "SettlingTime1": 0.01 },
+      { "SettlingTime2": 0.01 }
+    ]
+
+
+    //"UNKOWN_CYLINDER",
+    //"UP_DOWN",
+    //"LEFT_RIGHT",
+    //"FORWARD_BACKWARD",
+    //"TURN_RETURN",
+    //"LOCK_UNLOCK",
+    //"UPSTREAM_DOWNSTREAM",
+    //"CW_CCW",
+    //"OPEN_CLOSE",
+    //"UP_MID_DOWN",
+    //"EXPAND_REDUCE",
+    //"LEFT_MIDE_RIGHT",
+    //"FRONT_MID_BACK",
+    //"UPSTREAM_MID_DOWNSTREAM",
+    //"UPSTREAM_DOWNSTREAM_VARIOUS_VELOCITY",
+    //"UPSTREAM_MID_DOWNSTREAM_VARIOUS_VELOCITY"
+
+    //"UNKOWN_SOLENOID",
+    //"SINGLE_SOLENOID",
+    //"REVERSE_SINGLE_SOLENOID",
+    //"DOUBLE_SOLENOID",
+    //"DOUBLE_3WAY_SOLENOID",
+    //"DOUBLE_SOLENOID_VARIOUS_VELOCITY"
+
+  }
+
+]

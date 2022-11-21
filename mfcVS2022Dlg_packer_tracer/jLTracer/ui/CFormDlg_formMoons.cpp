@@ -1,4 +1,4 @@
-﻿// D:\_Github\packet_tracer\mfcVS2022Dlg_packer_tracer\jLTracer\ui\CFormDlg_formMoons.cpp: 구현 파일
+﻿// CFormDlg_formMoons.cpp: 구현 파일
 //
 
 #include "pch.h"
@@ -504,13 +504,16 @@ int CformMoons::SendData(char* p_data, uint32_t length)
 
 	v_str.emplace_back((uint8_t)ret_crc);
 	v_str.emplace_back((uint8_t)(ret_crc >> 8));
-
+	uint32_t check_ms = 0, pev_ms = 0;
+	pev_ms = util::millis();
 	if (this->sendPacketWaitRxResp((uint8_t*)v_str.data(), (uint32_t)v_str.size(), 1000) != true)
 	{
 		ERR_PRINT("fail! moons_motor send packet data");
 		ret = -1;
 	}
 
+	check_ms = util::millis() - pev_ms;
+	check_ms = 0;
 
 	{ //TX
 		std::vector<char> msg{ 'T','X' };

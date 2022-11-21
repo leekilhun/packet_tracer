@@ -1,0 +1,77 @@
+[
+  {
+    "Vacuum 1": [
+      { "TYPE": "SINGLE_VACUUM" },
+      { "SOLENOID": "SINGLE_SOLENOID" },
+      { "TurningTime": 10.0 },
+      { "OnSettlingTime": 100.0 },
+      { "OffSettlingTime": 100.0 }
+    ],
+    "Vacuum 2": [
+      { "TYPE": "DOUBLE_VACUUM" },
+      { "SOLENOID": "DOUBLE_SOLENOID" },
+      { "TurningTime": 20.0 },
+      { "OnSettlingTime": 100.0 },
+      { "OffSettlingTime": 100.0 }
+    ],
+    "Vacuum 3": [
+      { "TYPE": "SINGLE_VACUUM_WBLOW" },
+      { "SOLENOID": "DOUBLE_SOLENOID" },
+      { "TurningTime": 30.0 },
+      { "OnSettlingTime": 100.0 },
+      { "OffSettlingTime": 100.0 }
+    ],
+    "Vacuum 4": [
+      { "TYPE": "DOUBLE_VACUUM_WBLOW" },
+      { "SOLENOID": "DOUBLE_SOLENOID" },
+      { "TurningTime": 40.0 },
+      { "OnSettlingTime": 100.0 },
+      { "OffSettlingTime": 100.0 }
+    ],
+    "Vacuum 5": [
+      { "TYPE": "DOUBLE_VACUUM_WBLOW" },
+      { "SOLENOID": "DOUBLE_SOLENOID" },
+      { "TurningTime": 50.0 },
+      { "OnSettlingTime": 100.0 },
+      { "OffSettlingTime": 100.0 }
+    ],
+    "Vacuum 6": [
+      { "TYPE": "DOUBLE_VACUUM" },
+      { "SOLENOID": "DOUBLE_SOLENOID" },
+      { "TurningTime": 60.0 },
+      { "OnSettlingTime": 100.0 },
+      { "OffSettlingTime": 100.0 }
+    ],
+    "Vacuum 7": [
+      { "TYPE": "DOUBLE_VACUUM" },
+      { "SOLENOID": "DOUBLE_SOLENOID" },
+      { "TurningTime": 70.0 },
+      { "OnSettlingTime": 100.0 },
+      { "OffSettlingTime": 100.0 }
+    ],
+    "Vacuum 8": [
+      { "TYPE": "OPEN_CLOSE" },
+      { "SOLENOID": "DOUBLE_SOLENOID" },
+      { "TurningTime": 80.0 },
+      { "OnSettlingTime": 100.0 },
+      { "OffSettlingTime": 100.0 }
+    ]
+  },
+
+
+//  "UNKOWN_VACUUM",
+//  "SINGLE_VACUUM",
+//  "SINGLE_VACUUM_WBLOW",
+//  "DOUBLE_VACUUM",
+//  "DOUBLE_VACUUM_WBLOW",
+//  "HETERO_DOUBLE_VACUUM",
+//  "REVERSE_DOUBLE_VACUUM",
+//  "REVERSE_SINGLE_VACUUM"
+
+  //"UNKOWN_SOLENOID",
+  //"SINGLE_SOLENOID",
+  //"DOUBLE_SOLENOID",
+
+
+
+]
